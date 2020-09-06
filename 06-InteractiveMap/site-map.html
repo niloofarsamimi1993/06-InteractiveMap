@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>اسناد و اطلاعات مربوط به پادگان ۰۶ </title>
+    <meta Name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lalezar">
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+
+    </style>
+</head>
+<body>
+
+<style>
+
+@font-face {
+  font-family:Anjoman;
+  src: url('Anjoman-Medium.woff') format('woff'),
+	url('Anjoman-Medium.oef') format('oef'),
+	url('Anjoman-Medium.ttf') format('truetype');
+  font-weight: bold;
+}
+
+iframe{
+display: flex;
+border: none;
+width: 300px;
+height: 300px;
+}
+
+a{
+display: inline-block;
+font-family: 'Anjoman';
+font-size: 12px;
+margin-top: 10%;
+text-decoration: none;
+}
+
+h1{
+font-family: 'Anjoman';
+font-size: 12px;
+margin:0;
+margin-left: 10px;
+margin-right: auto;
+}
+
+h2{
+font-family: 'Anjoman';
+font-size: 10px;
+margin:0;
+}
+
+
+.mapboxgl-popup-content {
+direction: rtl;
+max-width: 1000px;
+overflow: auto;
+}
+/*If the browser window is 500px or larger: */
+@media only screen and (min-width: 500px) {
+  #img1{
+    width: 250px;
+  }
+  .mapboxgl-popup{
+    transform:none !important;
+     top: 0px;
+    left: 0px;
+    height: 100%;
+}
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip{
+    display:none !important;
+}
+.mapboxgl-popup-close-button{
+visibility: hidden;
+
+}
+.mapboxgl-popup-content {
+
+       direction: rtl;
+       max-width: 1000px;
+       height: 100%;
+       overflow: auto;
+            }
+
+#menu {
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        right: 10px;
+        border-radius: 3px;
+        width: 280px;
+        border: none;
+        font-family: 'Anjoman';
+    }
+
+    #menu a {
+        font-size: 15px;
+        color: #404040;
+        display: block;
+        margin: 1%;
+        padding: 0;
+        padding: 10px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0,0,0,0.25);
+        text-align: center;
+    }
+
+    #menu a:last-child {
+        border: none;
+    }
+
+    #menu a:hover {
+        background-color: #6e6e6e;
+        color: #ffffff;
+    }
+
+    #menu a.active {
+        background-color: #6400ff;
+        color: #ffffff;
+    }
+
+    #menu a.active:hover {
+        background: #e6e6e6;
+    }
+    .layer {
+      cursor: pointer;}
+}
+
+/*If the browser window is smaller than 500px: */
+@media only screen and (max-width: 500px) {
+  #img1{
+    width: 200px;
+  }
+  #container{
+    padding-right: 5%;
+  }
+  .mapboxgl-popup{
+    transform:none !important;
+     bottom: 0px;
+     left: 0px;
+     right: 0px;
+     top:auto;
+    width: 100%;
+}
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip{
+    display:none !important;
+}
+.mapboxgl-popup-close-button{
+visibility: hidden;
+
+}
+  .mapboxgl-popup-content {
+      display: flex;
+      direction: rtl;
+      height: 210px;
+      overflow: auto;
+          }
+
+  #menu {
+      background: #fff;
+      position: absolute;
+      z-index: 1;
+      top: 10px;
+      padding: 0 1% 0 1%;
+      border-radius: 3px;
+      width: 98%;
+      border: none;
+      font-family: 'Anjoman';
+  }
+
+  #menu a {
+      font-size: 15px;
+      color: #404040;
+      display: block;
+      margin: 1%;
+
+      padding: 1% 0 1% 0 ;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,0.25);
+      text-align: center;
+  }
+
+  #menu a:last-child {
+      border: none;
+  }
+
+  #menu a:hover {
+      background-color: #6e6e6e;
+      color: #ffffff;
+  }
+
+  #menu a.active {
+      background-color: #6400ff;
+      color: #ffffff;
+  }
+
+  #menu a.active:hover {
+      background: #e6e6e6;
+  }
+  .layer {
+    cursor: pointer;}
+}
+
+</style>
+
+<nav id="menu"></nav>
+<div id="map"></div>
+
+<script>
+/*If the browser window is smaller than 500px zoom starts from 14.2  */
+if (screen.width<500){
+var zom= 14.2
+} else {
+var zom= 15.4
+}
+
+mapboxgl.accessToken = 'pk.eyJ1IjoicGJpemVoIiwiYSI6ImNqNnA1eTcyYzBxYmUyd3BrNjkwOWg4d2sifQ.YJDQpV4dgfwfsFVrEqkHJw';
+mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.1/mapbox-gl-rtl-text.js');
+
+/*make and customize a mapbox */
+var map = new mapboxgl.Map({
+    container: 'map',// container id
+    style: 'mapbox://styles/mapbox/light-v8',// stylesheet location
+    center: [51.470148,35.777635],// starting position [lng, lat
+    zoom:zom // starting zoom (used as a variable for screen size changing)
+});
+/*add geojson layers to map*/
+//from here
+map.on('load', function () {
+/*read data from file (internal borders)*/
+  map.addSource('internal', {
+  "type": 'geojson',
+  "data":'InternalBorders.js'
+  });
+/*add data to map as a new layer (internal borders)*/
+  map.addLayer({
+  'id': 'internal',
+  'type': 'line',
+  'source': 'internal',
+  'paint': {
+    'line-color': 'rgba(0,0,0,0.15)',
+    'line-width': 1
+  }
+  });
+/*read data from file (buildings)*/
+  map.addSource("biuldings", {
+    "type": 'geojson',
+    "data":"Buildings00-Final.js"
+});
+/*add data to map as a new layer (buildings)*/
+  map.addLayer({
+    'id': 'ساختمان‌های موجود',
+    'type': 'fill',
+    'source': "biuldings",
+    'layout': {},
+    'paint': {
+    'fill-color': {
+              type: 'identity',
+              property: 'color',
+          },
+}
+});
+/*make and customize popups for biuldings layer*/
+map.on('click', 'ساختمان‌های موجود', function (e) {
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+        //  '<iframe src="slideshow.html" ></iframe>'+
+        "<div>"+
+        '<img src='+e.features[0].properties.ImageURL+' id="img1"></img><p id="fonttext">'+
+        "</div>"+
+        "<div id='container'>"+
+        "<h1>"+"نام:  "+e.features[0].properties.Name+"</h1>" +
+        "<h1>"+"زیربنا (متر مربع):  "+e.features[0].properties.FloorArea+"</h1>"+
+        "<h1>"+"سطح اشغال (متر مربع):  "+e.features[0].properties.Footprint+"</h1>"+
+        "<h1>"+"تعداد طبقات:  "+e.features[0].properties.Floor+"</h1>"+
+        "<h1>"+"دوره ساخت:  "+e.features[0].properties.Period+"</h1>"+
+        "<a target='_blank' href="+e.features[0].properties.PageURL+" >اطلاعات تکمیلی </a>"+"</div>")
+
+       .addTo(map);
+
+});
+/*read data from file (boundary)*/
+map.addSource("boundary", {
+  "type": 'geojson',
+  "data":'Boundary.js'
+});
+/*add data to map as a new layer (boundary)*/
+map.addLayer({
+  'id': "محدوده اراضی پادگان ۰۶",
+  'type': 'line',
+  'source': "boundary",
+  'paint': {
+      'line-color': '#00ff96',
+      'line-width': 2,
+      // 'line-dasharray': [4,10],
+}
+});
+/*read data from file (trees)*/
+map.addSource("trees", {
+    "type": 'geojson',
+    "data":'trees.geojson'
+
+
+});
+/*add data to map as a new layer (trees)*/
+map.addLayer({
+  'id': "درختان",
+  'type': 'circle',
+  'source': "trees",
+  'paint': {
+  'circle-radius':[
+        "interpolate", ["linear"], ["zoom"],
+        // zoom is 15 (or less) -> circle radius will multiply by 0.01
+        15, ["*",0.01, ["get","Radius"]],
+        // zoom is 22 (or greater) -> circle radius will multiply by 0.2
+        22, ["*",0.2, ["get","Radius"]]
+    ],
+
+  'circle-color': '#00d16b',
+  'circle-opacity': 0.6,
+  },
+
+});
+/*make and customize popups for trees layer*/
+/*map.on('click', "درختان", function (e) {
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML("<h1>"+"شماره پلاک: "+"</h1>" +"<h2>"+e.features[0].properties.Id+"</h2>"+
+        "<h1>"+"نوع درخت: "+"</h1>" +"<h2>"+e.features[0].properties.Type+"</h2>")
+       .addTo(map);
+});*/
+
+// Change cursor style to pointer when it enters layer.
+map.on('mouseenter', 'ساختمان‌های موجود', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'ساختمان‌های موجود', function () {
+    map.getCanvas().style.cursor = '';
+});
+
+// Change cursor style to pointer when it enters layer.
+/*map.on('mouseenter', "درختان", function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', "درختان", function () {
+    map.getCanvas().style.cursor = '';
+});*/
+
+
+
+});
+//to here
+
+//define a list of layer Ids
+var toggleableLayerIds = ["محدوده اراضی پادگان ۰۶","ساختمان‌های موجود","درختان"];
+
+
+
+for (var i = 0; i < toggleableLayerIds.length; i++) {
+    var id = toggleableLayerIds[i];
+
+    var link = document.createElement('a');
+    link.href = '#';
+    link.className = 'active';
+    link.textContent = id;
+
+    link.onclick = function (e) {
+        var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+
+        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+        if (visibility === 'visible') {
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            this.className = '';
+        } else {
+            this.className = 'active';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        }
+    };
+
+    var layers = document.getElementById('menu');
+    layers.appendChild(link);
+}
+
+</script>
+
+</body>
+</html>
